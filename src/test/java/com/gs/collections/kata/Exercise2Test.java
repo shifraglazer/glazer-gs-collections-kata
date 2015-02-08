@@ -19,6 +19,7 @@ package com.gs.collections.kata;
 import com.gs.collections.api.block.predicate.Predicate;
 import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.test.Verify;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -85,10 +86,11 @@ public class Exercise2Test extends CompanyDomainForKata
      */
     @Test
     public void getLondonCustomers()
-    {
-        MutableList<Customer> customersFromLondon = null;
-        Verify.assertSize("Should be 2 London customers", 2, customersFromLondon);
-    }
+    { 
+            MutableList<Customer> customersFromLondon = this.company.getCustomers().select(customer->customer.getCity().equals("London"));
+            Verify.assertSize("Should be 2 London customers", 2, customersFromLondon);
+        }
+    
 
     /**
      * Which customers do not come from London? Get a collection of those which don't. Use the Predicate {@link
