@@ -16,11 +16,18 @@
 
 package com.gs.collections.kata;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import com.gs.collections.api.RichIterable;
 import com.gs.collections.api.block.procedure.Procedure;
 import com.gs.collections.api.list.MutableList;
 import com.gs.collections.impl.block.factory.Procedures;
 import com.gs.collections.impl.test.Verify;
+import com.gs.collections.impl.utility.ListIterate;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,8 +40,8 @@ public class Exercise6Test extends CompanyDomainForKata
     @Test
     public void sortedTotalOrderValue()
     {
-        MutableList<Double> sortedTotalValues = null;
-
+        MutableList<Double> sortedTotalValues = this.company.getCustomers().collect(Customer.TO_TOTAL_ORDER_VALUE);
+        Collections.sort(sortedTotalValues);
         // Don't forget the handy utility methods getFirst() and getLast()...
         Assert.assertEquals("Highest total order value", Double.valueOf(857.0), sortedTotalValues.getLast());
         Assert.assertEquals("Lowest total order value", Double.valueOf(71.0), sortedTotalValues.getFirst());
@@ -46,7 +53,7 @@ public class Exercise6Test extends CompanyDomainForKata
     @Test
     public void maximumTotalOrderValue()
     {
-        Double maximumTotalOrderValue = null;
+        Double maximumTotalOrderValue = ListIterate.max(new ArrayList<Double>(this.company.getCustomers().collect(Customer.TO_TOTAL_ORDER_VALUE)));
         Assert.assertEquals("max value", Double.valueOf(857.0), maximumTotalOrderValue);
     }
 
@@ -56,7 +63,7 @@ public class Exercise6Test extends CompanyDomainForKata
     @Test
     public void customerWithMaxTotalOrderValue()
     {
-        Customer customerWithMaxTotalOrderValue = null;
+        Customer customerWithMaxTotalOrderValue =ListIterate.maxBy(this.company.getCustomers(),Customer.TO_TOTAL_ORDER_VALUE);
         Assert.assertEquals(this.company.getCustomerNamed("Mary"), customerWithMaxTotalOrderValue);
     }
 
@@ -66,7 +73,9 @@ public class Exercise6Test extends CompanyDomainForKata
     @Test
     public void supplierNamesAsTildeDelimitedString()
     {
-        String tildeSeparatedNames = null;
+       String tildeSeparatedNames = null;
+       //String.join('~', this.company.getCustomers().collect(Customer.TO_NAME).toArray());
+       
         Assert.assertEquals(
                 "tilde separated names",
                 "Shedtastic~Splendid Crocks~Annoying Pets~Gnomes 'R' Us~Furniture Hamlet~SFD~Doxins",

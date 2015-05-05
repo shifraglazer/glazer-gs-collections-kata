@@ -54,7 +54,7 @@ public class Company
 
     public MutableList<Order> getOrders()
     {
-        Assert.fail("Refactor this code to use GS Collections as part of Exercise 3");
+       
         MutableList<Order> orders = FastList.newList();
         for (Customer customer : this.customers)
         {
@@ -89,7 +89,11 @@ public class Company
         /**
          * Use a {@link Predicate} to find a {@link Customer} with the name given.
          */
-        Assert.fail("Implement this method as part of Exercise 2");
-        return null;
+    	for(Customer c:customers){
+    		if(c.getName().equals(name)){
+    			return c;
+    		}
+    	}
+    	 return null;
     }
 }
